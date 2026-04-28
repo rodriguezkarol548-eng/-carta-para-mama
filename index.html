@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz Día Mamá</title>
+
+<style>
+body{
+    margin:0;
+    background:black;
+    overflow:hidden;
+    font-family:Arial, sans-serif;
+    color:white;
+    text-align:center;
+}
+
+/* Letras cayendo */
+.falling{
+    position:absolute;
+    top:-50px;
+    color:pink;
+    font-size:30px;
+    animation:fall linear infinite;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh);
+    }
+}
+
+/* Cuenta regresiva */
+#count{
+    position:absolute;
+    top:40%;
+    width:100%;
+    font-size:80px;
+    color:pink;
+}
+
+/* Carta */
+#card{
+    display:none;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:rgba(255,192,203,0.2);
+    border:2px solid pink;
+    padding:25px;
+    border-radius:15px;
+    font-size:20px;
+    width:80%;
+    max-width:400px;
+    box-shadow:0 0 20px pink;
+}
+
+/* Corazones */
+.heart{
+    position:absolute;
+    color:pink;
+    font-size:20px;
+    animation:floatUp 4s linear infinite;
+}
+
+@keyframes floatUp{
+    from{
+        transform:translateY(100vh);
+        opacity:1;
+    }
+    to{
+        transform:translateY(-10vh);
+        opacity:0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="count">1</div>
+
+<div id="card">
+💗 Gracias por todo mamá 💗<br><br>
+Te amo muchísimo como no te lo imaginas,<br>
+eres la mejor mamá del mundo<br>
+y lo más importante para mí 💕<br><br>
+Con amor: <b>Karol</b>
+</div>
+
+<script>
+
+/* Texto cayendo */
+const text = "FELIZ DÍA MAMÁ ";
+
+function createLetters(){
+    for(let i=0;i<50;i++){
+        let span = document.createElement("span");
+        span.className="falling";
+        span.innerText=text[Math.floor(Math.random()*text.length)];
+        span.style.left=Math.random()*100+"vw";
+        span.style.animationDuration=(3+Math.random()*5)+"s";
+        document.body.appendChild(span);
+    }
+}
+createLetters();
+
+/* Cuenta regresiva */
+let count = 1;
+const countDiv = document.getElementById("count");
+
+function countdown(){
+    if(count<=3){
+        countDiv.innerText=count;
+        count++;
+        setTimeout(countdown,1000);
+    }else{
+        countDiv.style.display="none";
+        document.getElementById("card").style.display="block";
+        createHearts();
+    }
+}
+countdown();
+
+/* Corazones */
+function createHearts(){
+    setInterval(()=>{
+        let heart=document.createElement("div");
+        heart.className="heart";
+        heart.innerText="💗";
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.fontSize=(15+Math.random()*25)+"px";
+        document.body.appendChild(heart);
+
+        setTimeout(()=>heart.remove(),4000);
+    },200);
+}
+
+</script>
+
+</body>
+</html>
